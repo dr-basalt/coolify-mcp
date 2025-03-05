@@ -11,7 +11,7 @@ describe('CoolifyClient', () => {
   beforeEach(() => {
     client = new CoolifyClient({
       baseUrl: 'http://test.coolify.io',
-      accessToken: 'test-token'
+      accessToken: 'test-token',
     });
     mockFetch.mockClear();
   });
@@ -199,9 +199,9 @@ describe('CoolifyClient', () => {
       expect.objectContaining({
         headers: {
           Authorization: 'Bearer test-token',
-          'Content-Type': 'application/json'
-        }
-      })
+          'Content-Type': 'application/json',
+        },
+      }),
     );
   });
 
@@ -230,9 +230,9 @@ describe('CoolifyClient', () => {
       expect.objectContaining({
         headers: {
           Authorization: 'Bearer test-token',
-          'Content-Type': 'application/json'
-        }
-      })
+          'Content-Type': 'application/json',
+        },
+      }),
     );
   });
 });

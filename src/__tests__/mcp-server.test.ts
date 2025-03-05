@@ -5,7 +5,7 @@ import type { ServerResources, ValidationResponse } from '../types/coolify.js';
 describe('CoolifyMcpServer', () => {
   const mockConfig = {
     baseUrl: 'https://coolify.test',
-    accessToken: 'test-token'
+    accessToken: 'test-token',
   };
 
   let server: CoolifyMcpServer;
@@ -19,17 +19,20 @@ describe('CoolifyMcpServer', () => {
   describe('get_server_resources', () => {
     it('should call client getServerResources', async () => {
       // Mock the method before calling it
-      const mockResources: ServerResources = [{
-        id: 1,
-        uuid: 'test-resource-uuid',
-        name: 'test-resource',
-        type: 'application',
-        created_at: '2024-03-20T00:00:00Z',
-        updated_at: '2024-03-20T00:00:00Z',
-        status: 'running'
-      }];
+      const mockResources: ServerResources = [
+        {
+          id: 1,
+          uuid: 'test-resource-uuid',
+          name: 'test-resource',
+          type: 'application',
+          created_at: '2024-03-20T00:00:00Z',
+          updated_at: '2024-03-20T00:00:00Z',
+          status: 'running',
+        },
+      ];
 
-      const spy = jest.spyOn(server['client'], 'getServerResources')
+      const spy = jest
+        .spyOn(server['client'], 'getServerResources')
         .mockResolvedValue(mockResources);
 
       await server.get_server_resources('test-uuid');
@@ -41,11 +44,10 @@ describe('CoolifyMcpServer', () => {
     it('should call client validateServer', async () => {
       // Mock the method before calling it
       const mockValidation: ValidationResponse = {
-        message: 'Server is valid'
+        message: 'Server is valid',
       };
 
-      const spy = jest.spyOn(server['client'], 'validateServer')
-        .mockResolvedValue(mockValidation);
+      const spy = jest.spyOn(server['client'], 'validateServer').mockResolvedValue(mockValidation);
 
       await server.validate_server('test-uuid');
       expect(spy).toHaveBeenCalledWith('test-uuid');
