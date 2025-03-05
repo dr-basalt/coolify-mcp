@@ -7,16 +7,16 @@ A Model Context Protocol (MCP) server implementation for [Coolify](https://cooli
 ### Claude
 
 ```json
-        "coolify": {
-            "command": "npx",
-            "args": [
-                "-y", "@stumason/coolify-mcp"
-            ],
-            "env": {
-                "COOLIFY_ACCESS_TOKEN": "0|your-secret-token",
-                "COOLIFY_BASE_URL": "https://your-coolify-instance.com"
-            }
-        },
+"coolify": {
+    "command": "npx",
+    "args": [
+        "-y", "@stumason/coolify-mcp"
+    ],
+    "env": {
+        "COOLIFY_ACCESS_TOKEN": "0|your-secret-token",
+        "COOLIFY_BASE_URL": "https://your-coolify-instance.com"
+    }
+},
 ```
 
 ### Cursor
