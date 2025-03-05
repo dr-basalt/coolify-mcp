@@ -14,4 +14,9 @@ module.exports = {
     ],
   },
   extensionsToTreatAsEsm: ['.ts'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '\\.d\\.ts$'
+  ],
 }; 
