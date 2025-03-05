@@ -1,7 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { CoolifyClient } from './coolify-client.js';
-import { CoolifyConfig } from '../types/coolify.js';
+import { CoolifyConfig, ServerInfo, ServerResources, ServerDomain, ValidationResponse } from '../types/coolify.js';
 import { z } from 'zod';
 
 export class CoolifyMcpServer {
@@ -135,23 +135,23 @@ export class CoolifyMcpServer {
     }
   }
 
-  async list_servers() {
+  async list_servers(): Promise<ServerInfo[]> {
     return this.client.listServers();
   }
 
-  async get_server(uuid: string) {
+  async get_server(uuid: string): Promise<ServerInfo> {
     return this.client.getServer(uuid);
   }
 
-  async get_server_resources(uuid: string) {
+  async get_server_resources(uuid: string): Promise<ServerResources> {
     return this.client.getServerResources(uuid);
   }
 
-  async get_server_domains(uuid: string) {
+  async get_server_domains(uuid: string): Promise<ServerDomain[]> {
     return this.client.getServerDomains(uuid);
   }
 
-  async validate_server(uuid: string) {
+  async validate_server(uuid: string): Promise<ValidationResponse> {
     return this.client.validateServer(uuid);
   }
 }

@@ -7,13 +7,12 @@ global.fetch = mockFetch;
 
 describe('CoolifyClient', () => {
   let client: CoolifyClient;
-  const mockConfig = {
-    baseUrl: 'http://test.coolify.io',
-    accessToken: 'test-token',
-  };
 
   beforeEach(() => {
-    client = new CoolifyClient(mockConfig);
+    client = new CoolifyClient({
+      baseUrl: 'http://test.coolify.io',
+      accessToken: 'test-token'
+    });
     mockFetch.mockClear();
   });
 
@@ -196,12 +195,13 @@ describe('CoolifyClient', () => {
     const server = await client.getServer('test-uuid');
     expect(server).toEqual(mockResponse);
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://example.com/api/v1/servers/test-uuid',
+      'http://test.coolify.io/api/v1/servers/test-uuid',
       expect.objectContaining({
         headers: {
           Authorization: 'Bearer test-token',
-        },
-      }),
+          'Content-Type': 'application/json'
+        }
+      })
     );
   });
 
@@ -226,12 +226,13 @@ describe('CoolifyClient', () => {
     const resources = await client.getServerResources('test-uuid');
     expect(resources).toEqual(mockResponse);
     expect(global.fetch).toHaveBeenCalledWith(
-      'https://example.com/api/v1/servers/test-uuid/resources',
+      'http://test.coolify.io/api/v1/servers/test-uuid/resources',
       expect.objectContaining({
         headers: {
           Authorization: 'Bearer test-token',
-        },
-      }),
+          'Content-Type': 'application/json'
+        }
+      })
     );
   });
 });
