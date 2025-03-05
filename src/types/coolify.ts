@@ -32,3 +32,12 @@ export interface ErrorResponse {
   status: number;
   message: string;
 }
+
+export interface ServerDomain {
+  ip: string;
+  domains: string[];
+}
+
+export interface ValidationResponse {
+  message: string;
+}

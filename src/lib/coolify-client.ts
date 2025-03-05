@@ -1,4 +1,4 @@
-import { CoolifyConfig, ErrorResponse, ServerInfo, ServerStatus } from '../types/coolify.js';
+import { CoolifyConfig, ErrorResponse, ServerInfo, ServerStatus, ServerDomain, ValidationResponse } from '../types/coolify.js';
 
 export class CoolifyClient {
   private baseUrl: string;
@@ -59,6 +59,16 @@ export class CoolifyClient {
   async getServerStatus(uuid: string): Promise<ServerStatus> {
     console.log(`Getting server status for UUID: ${uuid}`);
     return this.request<ServerStatus>(`/servers/${uuid}/resources`);
+  }
+
+  async getServerDomains(uuid: string): Promise<ServerDomain[]> {
+    console.log(`Getting server domains for UUID: ${uuid}`);
+    return this.request<ServerDomain[]>(`/servers/${uuid}/domains`);
+  }
+
+  async validateServer(uuid: string): Promise<ValidationResponse> {
+    console.log(`Validating server with UUID: ${uuid}`);
+    return this.request<ValidationResponse>(`/servers/${uuid}/validate`);
   }
 
   async validateConnection(): Promise<void> {

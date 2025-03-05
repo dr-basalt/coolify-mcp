@@ -27,8 +27,8 @@ describe('CoolifyClient', () => {
         resources: {
           cpu: 50,
           memory: 60,
-          disk: 70
-        }
+          disk: 70,
+        },
       },
       {
         uuid: 'test-id-2',
@@ -38,9 +38,9 @@ describe('CoolifyClient', () => {
         resources: {
           cpu: 0,
           memory: 0,
-          disk: 70
-        }
-      }
+          disk: 70,
+        },
+      },
     ];
 
     it('should fetch server list successfully', async () => {
@@ -88,8 +88,8 @@ describe('CoolifyClient', () => {
       resources: {
         cpu: 50,
         memory: 60,
-        disk: 70
-      }
+        disk: 70,
+      },
     };
 
     it('should fetch server info successfully', async () => {
@@ -137,8 +137,8 @@ describe('CoolifyClient', () => {
         type: 'application',
         created_at: '2024-03-19T12:00:00Z',
         updated_at: '2024-03-19T12:00:00Z',
-        status: 'running:healthy'
-      }
+        status: 'running:healthy',
+      },
     ];
 
     it('should fetch server status successfully', async () => {
@@ -185,12 +185,12 @@ describe('CoolifyClient', () => {
       ip: '127.0.0.1',
       port: 22,
       is_reachable: true,
-      is_usable: true
+      is_usable: true,
     };
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve(mockResponse)
+      json: () => Promise.resolve(mockResponse),
     });
 
     const server = await client.getServer('test-uuid');
@@ -199,9 +199,9 @@ describe('CoolifyClient', () => {
       'https://example.com/api/v1/servers/test-uuid',
       expect.objectContaining({
         headers: {
-          Authorization: 'Bearer test-token'
-        }
-      })
+          Authorization: 'Bearer test-token',
+        },
+      }),
     );
   });
 
@@ -214,13 +214,13 @@ describe('CoolifyClient', () => {
         type: 'application',
         created_at: '2025-03-05T13:41:12.000Z',
         updated_at: '2025-03-05T13:41:12.000Z',
-        status: 'running:healthy'
-      }
+        status: 'running:healthy',
+      },
     ];
 
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
-      json: () => Promise.resolve(mockResponse)
+      json: () => Promise.resolve(mockResponse),
     });
 
     const status = await client.getServerStatus('test-uuid');
@@ -229,9 +229,9 @@ describe('CoolifyClient', () => {
       'https://example.com/api/v1/servers/test-uuid/resources',
       expect.objectContaining({
         headers: {
-          Authorization: 'Bearer test-token'
-        }
-      })
+          Authorization: 'Bearer test-token',
+        },
+      }),
     );
   });
 });
