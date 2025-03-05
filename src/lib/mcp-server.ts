@@ -18,19 +18,17 @@ export class CoolifyMcpServer {
 
   private setupResources(): void {
     // Server info resource
-    this.server.resource(
-      'server-info',
-      'coolify://server/info',
-      async () => {
-        const info = await this.client.getServerInfo();
-        return {
-          contents: [{
+    this.server.resource('server-info', 'coolify://server/info', async () => {
+      const info = await this.client.getServerInfo();
+      return {
+        contents: [
+          {
             uri: 'coolify://server/info',
             text: JSON.stringify(info, null, 2),
-          }],
-        };
-      },
-    );
+          },
+        ],
+      };
+    });
 
     // More resources will be added here
   }
@@ -38,4 +36,4 @@ export class CoolifyMcpServer {
   async start(transport: any): Promise<void> {
     await this.server.connect(transport);
   }
-} 
+}

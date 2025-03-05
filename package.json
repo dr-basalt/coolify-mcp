@@ -51,18 +51,6 @@
   "engines": {
     "node": ">=18"
   },
-  "lint-staged": {
-    "*.{ts,js}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md}": [
-      "prettier --write"
-    ],
-    "*.md": [
-      "markdownlint-cli2"
-    ]
-  },
   "size-limit": [
     {
       "path": "dist/index.js",

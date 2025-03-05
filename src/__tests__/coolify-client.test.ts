@@ -37,16 +37,16 @@ describe('CoolifyClient', () => {
       });
 
       const result = await client.getServerInfo();
-      
+
       expect(result).toEqual(mockServerInfo);
       expect(mockFetch).toHaveBeenCalledWith(
         'http://test.coolify.io/api/v1/server',
         expect.objectContaining({
           headers: expect.objectContaining({
-            'Authorization': 'Bearer test-token',
+            Authorization: 'Bearer test-token',
             'Content-Type': 'application/json',
           }),
-        })
+        }),
       );
     });
 
@@ -65,4 +65,4 @@ describe('CoolifyClient', () => {
       await expect(client.getServerInfo()).rejects.toThrow('Invalid token');
     });
   });
-}); 
+});

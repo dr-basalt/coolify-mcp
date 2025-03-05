@@ -17,10 +17,12 @@ class CoolifyMcpServer {
         this.server.resource('server-info', 'coolify://server/info', async () => {
             const info = await this.client.getServerInfo();
             return {
-                contents: [{
+                contents: [
+                    {
                         uri: 'coolify://server/info',
                         text: JSON.stringify(info, null, 2),
-                    }],
+                    },
+                ],
             };
         });
         // More resources will be added here

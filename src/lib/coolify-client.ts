@@ -9,13 +9,10 @@ export class CoolifyClient {
     this.accessToken = config.accessToken;
   }
 
-  private async request<T>(
-    path: string,
-    options: RequestInit = {},
-  ): Promise<T> {
+  private async request<T>(path: string, options: RequestInit = {}): Promise<T> {
     const url = `${this.baseUrl}/api/v1${path}`;
     const headers = {
-      'Authorization': `Bearer ${this.accessToken}`,
+      Authorization: `Bearer ${this.accessToken}`,
       'Content-Type': 'application/json',
       ...options.headers,
     };
@@ -35,4 +32,4 @@ export class CoolifyClient {
   }
 
   // Add more methods as needed for other endpoints
-} 
+}

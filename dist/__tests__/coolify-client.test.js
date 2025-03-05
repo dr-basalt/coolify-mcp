@@ -35,7 +35,7 @@ describe('CoolifyClient', () => {
             expect(result).toEqual(mockServerInfo);
             expect(mockFetch).toHaveBeenCalledWith('http://test.coolify.io/api/v1/server', expect.objectContaining({
                 headers: expect.objectContaining({
-                    'Authorization': 'Bearer test-token',
+                    Authorization: 'Bearer test-token',
                     'Content-Type': 'application/json',
                 }),
             }));

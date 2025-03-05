@@ -9,7 +9,7 @@ class CoolifyClient {
     async request(path, options = {}) {
         const url = `${this.baseUrl}/api/v1${path}`;
         const headers = {
-            'Authorization': `Bearer ${this.accessToken}`,
+            Authorization: `Bearer ${this.accessToken}`,
             'Content-Type': 'application/json',
             ...options.headers,
         };

@@ -1,8 +1,10 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+#!/bin/sh
 
-# Run lint-staged for linting and formatting
-npx lint-staged
+# Run ESLint
+npm run lint || exit 1
 
-# Run build to ensure everything compiles
-npm run build 
+# Run Prettier
+npm run format || exit 1
+
+# Run build
+npm run build || exit 1 
