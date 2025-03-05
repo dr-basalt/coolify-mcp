@@ -30,6 +30,19 @@ export class CoolifyMcpServer {
       };
     });
 
+    // Server status resource
+    this.server.resource('server-status', 'coolify://server/status', async () => {
+      const status = await this.client.getServerStatus();
+      return {
+        contents: [
+          {
+            uri: 'coolify://server/status',
+            text: JSON.stringify(status, null, 2),
+          },
+        ],
+      };
+    });
+
     // More resources will be added here
   }
 
