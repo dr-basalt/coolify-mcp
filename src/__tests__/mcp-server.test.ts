@@ -4,7 +4,7 @@ import { jest } from '@jest/globals';
 describe('CoolifyMcpServer', () => {
   const mockConfig = {
     baseUrl: 'https://coolify.test',
-    accessToken: 'test-token'
+    accessToken: 'test-token',
   };
 
   let server: CoolifyMcpServer;
@@ -28,4 +28,4 @@ describe('CoolifyMcpServer', () => {
       expect(spy).toHaveBeenCalledWith('test-uuid');
     });
   });
-}); 
+});

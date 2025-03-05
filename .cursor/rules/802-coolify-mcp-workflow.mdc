@@ -1,0 +1,57 @@
+---
+description: FOLLOW Coolify MCP workflow WHEN implementing new Coolify API endpoints TO ensure consistent and tested MCP tools
+globs: src/**/*.{ts,tsx}
+---
+
+# Coolify MCP Development Workflow
+
+## Context
+- When implementing new Coolify API endpoints as MCP tools
+- When adding new features from the feature documentation
+- When extending the MCP server capabilities
+
+## Requirements
+1. Start by reviewing feature documentation in docs/features
+2. Verify endpoint exists in openapi.yaml specification
+3. Follow existing implementation patterns:
+   - Add types to src/types/coolify.ts
+   - Add client method to src/lib/coolify-client.ts
+   - Add MCP tool to src/lib/mcp-server.ts
+   - Add simple test in src/__tests__/mcp-server.test.ts
+4. Keep tests focused on client method calls:
+   ```typescript
+   it('should call client methodName', async () => {
+     const spy = jest.spyOn(server['client'], 'methodName');
+     await server.method_name('test-uuid');
+     expect(spy).toHaveBeenCalledWith('test-uuid');
+   });
+   ```
+5. Follow gitflow as per 801-feature-workflow
+
+## Examples
+<example>
+# Good implementation
+1. Review docs/features/003-server-domains.md
+2. Verify /servers/{uuid}/domains in openapi.yaml
+3. Add ServerDomain interface to types
+4. Add getServerDomains() to client
+5. Add get_server_domains tool to MCP server
+6. Add simple test verifying client call
+7. Follow gitflow for commits and PR
+</example>
+
+<example type="invalid">
+# Poor implementation
+1. Start coding without checking docs
+2. Add endpoint not in OpenAPI spec
+3. Create new patterns different from existing code
+4. Write complex tests for MCP transport
+5. Skip gitflow process
+</example>
+
+<critical>
+- ALWAYS verify endpoint exists in OpenAPI spec
+- NEVER introduce new patterns - follow existing code
+- Keep tests simple - verify client calls only
+- Follow established file organization
+</critical> 
