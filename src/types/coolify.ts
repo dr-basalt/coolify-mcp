@@ -25,7 +25,7 @@ export interface ResourceStatus {
   status: string;
 }
 
-export type ServerStatus = ResourceStatus[];
+export type ServerResources = ResourceStatus[];
 
 export interface ErrorResponse {
   error: string;

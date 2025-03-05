@@ -21,7 +21,8 @@ export class CoolifyMcpServer {
   private setupTools(): void {
     this.server.tool(
       'list_servers',
-      'Get a list of all Coolify servers',
+      'List all Coolify servers',
+      {},
       async () => {
         try {
           const servers = await this.client.listServers();
@@ -41,8 +42,8 @@ export class CoolifyMcpServer {
 
     this.server.tool(
       'get_server',
-      'Get information about a specific Coolify server',
-      { uuid: z.string().describe('UUID of the server to get information for') },
+      'Get details about a specific Coolify server',
+      { uuid: z.string().describe('UUID of the server to get details for') },
       async (params) => {
         try {
           const server = await this.client.getServer(params.uuid);
@@ -61,14 +62,56 @@ export class CoolifyMcpServer {
     );
 
     this.server.tool(
-      'get_server_status',
-      'Get the current health status and resource utilization of a specific Coolify server',
-      { uuid: z.string().describe('UUID of the server to get status for') },
+      'get_server_resources',
+      'Get the current resources running on a specific Coolify server',
+      { uuid: z.string().describe('UUID of the server to get resources for') },
       async (params) => {
         try {
-          const status = await this.client.getServerStatus(params.uuid);
+          const resources = await this.client.getServerResources(params.uuid);
           return {
-            content: [{ type: 'text', text: JSON.stringify(status) }],
+            content: [{ type: 'text', text: JSON.stringify(resources) }],
+            isError: false
+          };
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          return {
+            content: [{ type: 'text', text: errorMessage }],
+            isError: true
+          };
+        }
+      }
+    );
+
+    this.server.tool(
+      'get_server_domains',
+      'Get the domains associated with a specific Coolify server',
+      { uuid: z.string().describe('UUID of the server to get domains for') },
+      async (params) => {
+        try {
+          const domains = await this.client.getServerDomains(params.uuid);
+          return {
+            content: [{ type: 'text', text: JSON.stringify(domains) }],
+            isError: false
+          };
+        } catch (error) {
+          const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+          return {
+            content: [{ type: 'text', text: errorMessage }],
+            isError: true
+          };
+        }
+      }
+    );
+
+    this.server.tool(
+      'validate_server',
+      'Validate the connection to a specific Coolify server',
+      { uuid: z.string().describe('UUID of the server to validate') },
+      async (params) => {
+        try {
+          const result = await this.client.validateServer(params.uuid);
+          return {
+            content: [{ type: 'text', text: JSON.stringify(result) }],
             isError: false
           };
         } catch (error) {
@@ -90,5 +133,25 @@ export class CoolifyMcpServer {
       const errorMessage = error instanceof Error ? error.message : 'Unknown error';
       throw new Error(`Failed to start MCP server: ${errorMessage}`);
     }
+  }
+
+  async list_servers() {
+    return this.client.listServers();
+  }
+
+  async get_server(uuid: string) {
+    return this.client.getServer(uuid);
+  }
+
+  async get_server_resources(uuid: string) {
+    return this.client.getServerResources(uuid);
+  }
+
+  async get_server_domains(uuid: string) {
+    return this.client.getServerDomains(uuid);
+  }
+
+  async validate_server(uuid: string) {
+    return this.client.validateServer(uuid);
   }
 }

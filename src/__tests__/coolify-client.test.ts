@@ -1,5 +1,5 @@
 import { CoolifyClient } from '../lib/coolify-client.js';
-import type { ServerInfo, ServerStatus } from '../types/coolify.js';
+import type { ServerInfo, ServerResources } from '../types/coolify.js';
 
 // Mock fetch globally
 const mockFetch = jest.fn();
@@ -128,8 +128,8 @@ describe('CoolifyClient', () => {
     });
   });
 
-  describe('getServerStatus', () => {
-    const mockServerStatus: ServerStatus = [
+  describe('getServerResources', () => {
+    const mockServerResources: ServerResources = [
       {
         id: 1,
         uuid: 'test-id',
@@ -141,15 +141,15 @@ describe('CoolifyClient', () => {
       },
     ];
 
-    it('should fetch server status successfully', async () => {
+    it('should fetch server resources successfully', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: async () => mockServerStatus,
+        json: async () => mockServerResources,
       });
 
-      const result = await client.getServerStatus('test-id');
+      const result = await client.getServerResources('test-id');
 
-      expect(result).toEqual(mockServerStatus);
+      expect(result).toEqual(mockServerResources);
       expect(mockFetch).toHaveBeenCalledWith(
         'http://test.coolify.io/api/v1/servers/test-id/resources',
         expect.objectContaining({
@@ -173,7 +173,7 @@ describe('CoolifyClient', () => {
         json: async () => errorResponse,
       });
 
-      await expect(client.getServerStatus('test-id')).rejects.toThrow('Internal server error');
+      await expect(client.getServerResources('test-id')).rejects.toThrow('Internal server error');
     });
   });
 
@@ -205,7 +205,7 @@ describe('CoolifyClient', () => {
     );
   });
 
-  test('getServerStatus returns server status', async () => {
+  test('getServerResources returns server resources', async () => {
     const mockResponse = [
       {
         id: 1,
@@ -223,8 +223,8 @@ describe('CoolifyClient', () => {
       json: () => Promise.resolve(mockResponse),
     });
 
-    const status = await client.getServerStatus('test-uuid');
-    expect(status).toEqual(mockResponse);
+    const resources = await client.getServerResources('test-uuid');
+    expect(resources).toEqual(mockResponse);
     expect(global.fetch).toHaveBeenCalledWith(
       'https://example.com/api/v1/servers/test-uuid/resources',
       expect.objectContaining({
