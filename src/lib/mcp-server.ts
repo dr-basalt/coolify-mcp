@@ -1,4 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { Transport } from '@modelcontextprotocol/sdk/shared/transport.js';
 import { CoolifyClient } from './coolify-client.js';
 import { CoolifyConfig } from '../types/coolify.js';
 
@@ -46,7 +47,7 @@ export class CoolifyMcpServer {
     // More resources will be added here
   }
 
-  async start(transport: any): Promise<void> {
+  async start(transport: Transport): Promise<void> {
     await this.server.connect(transport);
   }
 }
